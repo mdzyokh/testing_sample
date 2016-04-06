@@ -27,15 +27,15 @@ public class MainActivity
     implements View.OnClickListener, MVP_Main.RequiredViewOps
 {
 
-    protected EditText mTextNewNote;
-    protected ListNotes mListAdapter;
-    protected ProgressBar mProgress;
+    public EditText mTextNewNote;
+    public ListNotes mListAdapter;
+    public ProgressBar mProgress;
 
     public MVP_Main.ProvidedPresenterOps mPresenter;
 
     // Responsible to maintain the object's integrity
     // during configurations change
-    protected final StateMaintainer mStateMaintainer =
+    public StateMaintainer mStateMaintainer =
             new StateMaintainer( getFragmentManager(), MainActivity.class.getName());
 
     @Override
@@ -56,11 +56,11 @@ public class MainActivity
     /**
      * Setup the Views
      */
-    protected void setupViews(){
+    public void setupViews(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        if ( fab!= null ) fab.setOnClickListener(this);
 
         mTextNewNote = (EditText) findViewById(R.id.edit_note);
         mListAdapter = new ListNotes();
@@ -69,10 +69,11 @@ public class MainActivity
         RecyclerView mList = (RecyclerView) findViewById(R.id.list_notes);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        mList.setLayoutManager(linearLayoutManager);
-        mList.setAdapter(mListAdapter);
-        mList.setItemAnimator(new DefaultItemAnimator());
+        if (mList != null ) {
+            mList.setLayoutManager(linearLayoutManager);
+            mList.setAdapter(mListAdapter);
+            mList.setItemAnimator(new DefaultItemAnimator());
+        }
     }
 
     /**

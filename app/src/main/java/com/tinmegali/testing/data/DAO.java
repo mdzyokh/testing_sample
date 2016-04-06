@@ -32,6 +32,12 @@ public class DAO {
         mHelper = new DBSchema(mContext);
     }
 
+    // constructor used for tests
+    public DAO(Context context, DBSchema helper) {
+        this.mContext = context;
+        mHelper = helper;
+    }
+
     private SQLiteDatabase getReadDB(){
         return mHelper.getReadableDatabase();
     }
@@ -112,7 +118,10 @@ public class DAO {
             c.close();
             db.close();
             return note;
-        } else return null;
+        } else {
+            db.close();
+            return null;
+        }
     }
 
 }
